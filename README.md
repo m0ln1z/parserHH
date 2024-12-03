@@ -1,1 +1,3 @@
 # parserHH
+
+Расширение Google Chrome

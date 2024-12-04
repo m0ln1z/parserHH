@@ -1,7 +1,7 @@
 {
-  "name": "Парсер HeadHunter",
+  "name": "Парсер HeadHunter Бета версия",
   "description": "Выгрузить данные",
-  "version": "0.2",
+  "version": "0.5",
   "manifest_version": 3,
   "icons": {},
   "action": {
@@ -12,7 +12,19 @@
     "activeTab",
     "tabs"
   ],
-  "background": {
-
-  }
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["libs/xlsx.full.min.js", "popup_artur.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["libs/xlsx.full.min.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "Парсер HeadHunter Бета версия",
   "description": "Выгрузить данные",
-  "version": "0.5",
+  "version": "0.7",
   "manifest_version": 3,
   "icons": {},
   "action": {

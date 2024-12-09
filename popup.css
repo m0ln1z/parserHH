@@ -1,16 +1,74 @@
+/* Основной стиль для тела */
 body {
-    text-align:center;
-    width:300px;
-    height:300px;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1e1e1e;
 }
 
-button {
-    width:100%;
-    color:white;
-    background:linear-gradient(#01a9e1, #5bc4bc);
-    border-width:0px;
-    border-radius:20px;
-    padding:5px;
+/* Основной контейнер */
+.main-container {
+    width: 500px; /* Ширина */
+    max-width: 90vw; /* Адаптация под мобильные устройства */
+    background: #262525;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Заголовок */
+.header {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444;
+}
+
+/* Контейнер кнопки и сообщения */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Кнопка действия */
+.action-button {
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: bold;
-    cursor:pointer;
+    color: #ffffff;
+    background: linear-gradient(90deg, #4f46e5, #2563eb);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-button:hover {
+    background: linear-gradient(90deg, #2563eb, #1d4ed8);
+    transform: scale(1.05);
+}
+
+/* Лоадер */
+.loader {
+    width: 40px;
+    height: 40px;
+    display: none;
+}
+
+/* Сообщение статуса */
+.status-message {
+    display: none;
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+    text-align: center;
 }

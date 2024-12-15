@@ -48,7 +48,7 @@ function grabDataWithPhones() {
                 let name = "------";
                 const nameElementPrimary = item.querySelector('[data-qa="resume-serp__resume-fullname"]');
                 const nameElementFallback = item.querySelector('[data-qa="serp-item__title-text"]');
-                
+
                 if (nameElementPrimary) {
                     name = nameElementPrimary.textContent.trim();
                 } else if (nameElementFallback) {
@@ -65,13 +65,13 @@ function grabDataWithPhones() {
                 const citizenship = item.querySelector('[data-qa="resume-serp_resume-item-citizenship-content"]')?.textContent.trim() || "------";
 
                 const regionRaw = item.querySelector('[data-qa="resume-serp_resume-item-area-and-relocation-content"]')?.textContent.trim() || "------";
-                const [region, relocation] = regionRaw.split('•').map(item => item.trim() || "------");
+                const region = regionRaw.split(',')[0].trim(); // Оставляем только город
 
                 const educationRaw = item.querySelector('[data-qa="resume-serp_resume-item-education-content"]')?.textContent.trim() || "------";
-                const education = educationRaw.replace(/•/g, ' / ');
+                const education = educationRaw.replace(/(\d{4})\s*•/g, '$1 / '); // Разделитель после года выпуска
 
                 const languagesRaw = item.querySelector('[data-qa="resume-serp_resume-item-languages-content"]')?.textContent.trim() || "------";
-                const languages = languagesRaw.replace(/([а-яА-ЯЁё]+ — [а-яА-ЯЁё]+)/g, '$1 / ').trim().replace(/\/ $/, '');
+                const languages = languagesRaw.replace(/([а-яА-ЯЁё]+ — [а-яА-ЯЁё]+)/g, '$1 / ').trim().replace(/\/ $/, ''); // Исправление разделителя
 
                 // Телефоны
                 let phone = "------";
@@ -81,7 +81,7 @@ function grabDataWithPhones() {
                 if (primaryPhoneElement) {
                     phone = primaryPhoneElement.textContent.trim().replace(/[^\d]/g, ''); // Убираем +, пробелы, скобки, тире
                 } else if (alternatePhoneElement) {
-                    phone = alternatePhoneElement.textContent.trim().replace(/[^\d]/g, ''); // Убираем +, пробелы, скобки, тире
+                    phone = alternatePhoneElement.textContent.trim().replace(/[^\d]/g, '');
                 }
 
                 const photo = item.querySelector('[data-qa="resume-card-avatar resume-card-avatar_with-user-photo"] img')?.src || "------";
@@ -98,19 +98,19 @@ function grabDataWithPhones() {
                     ? `https://hh.kz${resumeLinkElement.getAttribute("href")}`
                     : "------";
 
-                // Даты отклика и обновления (два типа селекторов)
+                // Даты отклика и обновления
                 let responseDate = "------";
                 let updateDate = "------";
 
                 const dateElementPrimary = item.querySelector('.magritte-text_style-secondary___1IU11_3-0-18');
-                const dateElementFallback = item.querySelector('[class*="magritte-text"]'); // Альтернативный селектор
+                const dateElementFallback = item.querySelector('[class*="magritte-text"]');
 
                 if (dateElementPrimary) {
                     responseDate = dateElementPrimary.textContent.match(/Откликнулся\s(.+?)•/)?.[1]?.trim() || "------";
-                    updateDate = dateElementPrimary.textContent.match(/Обновлено\s(.+)/)?.[1]?.trim() || "------";
+                    updateDate = dateElementPrimary.textContent.match(/Обновлено\s(\d{2}\.\d{2}\.\d{4})/)?.[1] || "------"; // Оставляем только дату
                 } else if (dateElementFallback) {
                     responseDate = dateElementFallback.textContent.match(/Откликнулся\s(.+?)•/)?.[1]?.trim() || "------";
-                    updateDate = dateElementFallback.textContent.match(/Обновлено\s(.+)/)?.[1]?.trim() || "------";
+                    updateDate = dateElementFallback.textContent.match(/Обновлено\s(\d{2}\.\d{2}\.\d{4})/)?.[1] || "------"; // Оставляем только дату
                 }
 
                 let messages = "------";
@@ -132,7 +132,6 @@ function grabDataWithPhones() {
                     "Специализация": specialization,
                     "Гражданство": citizenship,
                     "Регион": region,
-                    "Переезд": relocation,
                     "Образование": education,
                     "Языки": languages,
                     "Телефон": phone,
